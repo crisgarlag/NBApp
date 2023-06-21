@@ -11,7 +11,7 @@
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="144dp"
-        android:layout_marginTop="228dp"
+        android:layout_marginTop="156dp"
         android:text="Jugadores"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,4 +24,15 @@
         android:text="Equipos"
         app:layout_constraintStart_toStartOf="@+id/buttonPlayers"
         app:layout_constraintTop_toBottomOf="@+id/buttonPlayers" />
+
+    <Button
+        android:id="@+id/buttonGames"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Partidos"
+        app:layout_constraintStart_toStartOf="@+id/buttonTeams"
+        app:layout_constraintTop_toBottomOf="@+id/buttonTeams" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

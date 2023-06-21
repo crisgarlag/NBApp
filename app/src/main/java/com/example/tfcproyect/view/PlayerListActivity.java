@@ -53,17 +53,24 @@ public class PlayerListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_player_list);
 
         searchEditText = findViewById(R.id.searchEditText);
+        searchEditText.setVisibility(View.VISIBLE);
         playersRecyclerView = findViewById(R.id.playersRecyclerView);
         playersList = new ArrayList<>();
-
-
 
         requestQueue = Volley.newRequestQueue(this);
         playersAdapter = new PlayersAdapter(playersList);
         playersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         playersRecyclerView.setAdapter(playersAdapter);
 
-        searchPlayers("");
+        if(this.getIntent().hasExtra("abbreviationTeam")){
+            String abbreviation = this.getIntent().getExtras().getString("abbreviationTeam");
+            searchEditText.setVisibility(View.GONE);
+            searchPlayersByTeam(abbreviation);
+        }else{
+            searchPlayers("");
+        }
+
+
 
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -84,6 +91,12 @@ public class PlayerListActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+
+
+
         playersAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,8 +109,8 @@ public class PlayerListActivity extends AppCompatActivity {
     }
 
 
-    private void searchPlayerStats(View view, String query) {
-        String url = API_BALLDONTLIE_URL + query;
+    private void searchPlayerStats(View view, String playerName) {
+        String url = API_BALLDONTLIE_URL + playerName;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -148,7 +161,7 @@ public class PlayerListActivity extends AppCompatActivity {
 
     }
 
-    private void searchPlayers(String query) {
+    private void searchPlayers(String playerName) {
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, API_SPORTDATA_URL, null,
                 new Response.Listener<JSONArray>() {
@@ -175,7 +188,7 @@ public class PlayerListActivity extends AppCompatActivity {
                                 playersList.add(player);
 
                             }
-                            playersAdapter.setPlayersList(playersList.stream().filter(e -> e.getFullName().toLowerCase().contains(query.toLowerCase())).collect(Collectors.toList()));
+                            playersAdapter.setPlayersList(playersList.stream().filter(e -> e.getFullName().toLowerCase().contains(playerName.toLowerCase())).collect(Collectors.toList()));
                             playersAdapter.notifyDataSetChanged();
 
                         } catch (JSONException e) {
@@ -192,6 +205,56 @@ public class PlayerListActivity extends AppCompatActivity {
         
         requestQueue.add(request);
     }
+
+
+    private void searchPlayersByTeam(String abbreviationTeam) {
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, API_SPORTDATA_URL, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            playersList.clear();
+                            for (int i = 0; i < response.length(); i++) {
+                                //Por cada elemento del array crea un nuevo objeto
+                                JSONObject dataObject = response.getJSONObject(i);
+
+                                // Accede a los valores de los campos en el objeto JSON
+                                String firstName = dataObject.getString("FirstName");
+                                String lastName = dataObject.getString("LastName");
+                                String teamFullName = dataObject.getString("Team");
+                                String urlPhoto = dataObject.getString("PhotoUrl");
+                                String abbreviation = dataObject.getString("Team");
+                                Team team = new Team();
+                                team.setFullName(teamFullName);
+                                team.setAbbreviation(abbreviation);
+                                Player player = new Player();
+                                player.setFirstName(firstName);
+                                player.setLastName(lastName);
+                                player.setTeam(team);
+                                player.setUrlPhoto(urlPhoto);
+                                playersList.add(player);
+
+                            }
+                            playersAdapter.setPlayersList(playersList.stream().filter(e -> e.getTeam().getAbbreviation().contains(abbreviationTeam)).collect(Collectors.toList()));
+                            playersAdapter.notifyDataSetChanged();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
+
+        requestQueue.add(request);
+    }
+
+
 
     public void startStatsActivity(View view, String id){
         Intent intent = new Intent(this, StatsActivity.class);

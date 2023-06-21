@@ -35,7 +35,8 @@ import java.util.List;
 
 public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder> {
 
-    List<Team> teamList;
+    private List<Team> teamList;
+    private View.OnClickListener onClickListener;
 
     public TeamAdapter(List<Team> teamList) {
         this.teamList = teamList;
@@ -45,6 +46,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
     @Override
     public TeamAdapter.TeamViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_team, parent, false);
+        view.setOnClickListener(onClickListener);
         return new TeamViewHolder(view);
     }
 
@@ -60,11 +62,16 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
         return teamList.size();
     }
 
-    public class TeamViewHolder extends RecyclerView.ViewHolder {
+    public void setOnClickListener(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    public static class TeamViewHolder extends RecyclerView.ViewHolder {
 
         private TextView teamNameTextView;
         private ImageView logoTeamImageView;
         private SVGImageView svgImage;
+        private TextView abbreviationTeamTextView;
 
 
         public TeamViewHolder(@NonNull View itemView) {
@@ -72,14 +79,19 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
 
             teamNameTextView = itemView.findViewById(R.id.teamNameTextView);
             logoTeamImageView = itemView.findViewById(R.id.urlPhototeamImageView);
-            svgImage = itemView.findViewById(R.id.recentlyViewed_imgView);
+            svgImage = itemView.findViewById(R.id.SVGImageView);
+            abbreviationTeamTextView = itemView.findViewById(R.id.teamAbbView);
+        }
 
+        public TextView getAbbreviationTeam() {
+            return abbreviationTeamTextView;
         }
 
         public void bind(Team team) {
 
             String urlLogo = team.getUrlLogo();
             teamNameTextView.setText(team.getFullName());
+            abbreviationTeamTextView.setText(team.getAbbreviation());
             //"https://en.wikipedia.org/wiki/Cleveland_Cavaliers#/media/File:Cleveland_Cavaliers_logo.svg";
             // Inicia una nueva Thread para cargar la imagen SVG desde la URL
             Thread thread = new Thread(() -> {

@@ -11,7 +11,7 @@ import com.example.tfcproyect.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button buttonPlayers, buttonTeams;
+    private Button buttonPlayers, buttonTeams, buttonGames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,10 +20,12 @@ public class MainActivity extends AppCompatActivity {
 
         buttonPlayers = findViewById(R.id.buttonPlayers);
         buttonTeams = findViewById(R.id.buttonTeams);
+        buttonGames = findViewById(R.id.buttonGames);
 
         buttonPlayers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 startPlayerListActivity(view);
             }
         });
@@ -34,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
                 startTeamActivity(view);
             }
         });
+
+        buttonGames.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startGameActivity(view);
+            }
+        });
     }
 
     public void startPlayerListActivity(View view){
@@ -42,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
     }
     public void startTeamActivity(View view){
         Intent intent = new Intent(this, TeamActivity.class);
+        startActivity(intent);
+    }
+    public void startGameActivity(View view){
+        Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }
 }

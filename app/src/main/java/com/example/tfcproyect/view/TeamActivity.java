@@ -5,8 +5,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -47,6 +49,17 @@ public class TeamActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(teamAdapter);
         searchTeam();
+
+        teamAdapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TeamAdapter.TeamViewHolder teamViewHolder = new TeamAdapter.TeamViewHolder(view);
+                String abbreviationTeam = teamViewHolder.getAbbreviationTeam().getText().toString();
+                startPlayerActivity(view, abbreviationTeam);
+
+            }
+        });
+
     }
 
     public void searchTeam(){
@@ -62,15 +75,12 @@ public class TeamActivity extends AppCompatActivity {
                         String cityTeam = objectTeam.getString("City");
                         String nameTeam = objectTeam.getString("Name");
                         String urlLogoTeam = objectTeam.getString("WikipediaLogoUrl");
+                        String abbreviaton = objectTeam.getString("Key");
                         Team team = new Team();
                         String fullName = cityTeam + " " + nameTeam;
-                        Log.i("nombre", nameTeam);
-                        Log.i("city", cityTeam);
-                        Log.i("nombre completo", fullName);
-                        Log.i("urlLogoTeam", urlLogoTeam);
                         team.setFullName(fullName);
                         team.setUrlLogo(urlLogoTeam);
-                        Log.i("nombre completo del objeto", team.getFullName());
+                        team.setAbbreviation(abbreviaton);
                         teamList.add(team);
 
                     }
@@ -90,6 +100,12 @@ public class TeamActivity extends AppCompatActivity {
 
         requestQueue.add(response);
 
+    }
+
+    public void startPlayerActivity(View view, String abbreviationTeam){
+        Intent intent = new Intent(this, PlayerListActivity.class);
+        intent.putExtra("abbreviationTeam", abbreviationTeam);
+        startActivity(intent);
     }
 
 
