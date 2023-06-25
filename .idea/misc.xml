@@ -6,12 +6,13 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/drawable/gfgimage.xml" value="0.20520833333333333" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/layout/activity_game.xml" value="0.2969894222945484" />
+        <entry key="app/src/main/res/layout/activity_game.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.328125" />
         <entry key="app/src/main/res/layout/activity_player_list.xml" value="0.1890625" />
         <entry key="app/src/main/res/layout/activity_statics.xml" value="0.3421875" />
         <entry key="app/src/main/res/layout/activity_stats.xml" value="0.1890625" />
         <entry key="app/src/main/res/layout/activity_team.xml" value="0.328125" />
+        <entry key="app/src/main/res/layout/item_game.xml" value="0.5" />
         <entry key="app/src/main/res/layout/item_player.xml" value="0.3421875" />
         <entry key="app/src/main/res/layout/item_stats.xml" value="0.3421875" />
         <entry key="app/src/main/res/layout/item_team.xml" value="0.22" />

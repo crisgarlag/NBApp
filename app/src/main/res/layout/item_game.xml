@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.caverock.androidsvg.SVGImageView
+        android:id="@+id/SVGImageViewHomeTeam"
+        android:layout_width="62dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.caverock.androidsvg.SVGImageView
+        android:id="@+id/SVGImageViewAwayTeam"
+        android:layout_width="57dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="292dp"
+        app:layout_constraintStart_toStartOf="@+id/SVGImageViewHomeTeam"
+        app:layout_constraintTop_toTopOf="@+id/SVGImageViewHomeTeam" />
+
+    <TextView
+        android:id="@+id/textViewPoints1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="36dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/SVGImageViewHomeTeam"
+        app:layout_constraintTop_toTopOf="@+id/SVGImageViewHomeTeam" />
+
+    <TextView
+        android:id="@+id/textViewBar"
+        android:layout_width="19dp"
+        android:layout_height="18dp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewPoints2"
+        app:layout_constraintStart_toEndOf="@+id/textViewPoints1"
+        app:layout_constraintTop_toTopOf="@+id/textViewPoints1" />
+
+    <TextView
+        android:id="@+id/textViewPoints2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="4dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/SVGImageViewAwayTeam"
+        app:layout_constraintTop_toTopOf="@+id/SVGImageViewAwayTeam" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
