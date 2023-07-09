@@ -6,33 +6,57 @@
     android:layout_height="match_parent"
     tools:context=".view.MainActivity">
 
-    <Button
-        android:id="@+id/buttonPlayers"
-        android:layout_width="125dp"
+    <ImageView
+        android:id="@+id/mainBackground"
+        style="@style/mainBackground"
+        android:alpha="0.5"
+        />
+
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="156dp"
-        android:text="Jugadores"
+        android:layout_alignParentTop="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/mainBackground"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35"
+        app:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/buttonPlayers"
+            style="@style/buttons"
+            android:text="@string/jugadores"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/buttonTeams"
+            style="@style/buttons"
+            android:text="@string/equipos"
+            app:layout_constraintStart_toStartOf="@+id/buttonPlayers"
+            app:layout_constraintTop_toBottomOf="@+id/buttonPlayers" />
+
+        <Button
+            android:id="@+id/buttonGames"
+            style="@style/buttons"
+            android:text="@string/partidos"
+            app:layout_constraintStart_toStartOf="@+id/buttonTeams"
+            app:layout_constraintTop_toBottomOf="@+id/buttonTeams" />
+    </androidx.gridlayout.widget.GridLayout>
+
+    <ImageView
+        android:id="@+id/logNBA"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="96dp"
+        android:src="@mipmap/nbalogo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/buttonTeams"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:text="Equipos"
-        app:layout_constraintStart_toStartOf="@+id/buttonPlayers"
-        app:layout_constraintTop_toBottomOf="@+id/buttonPlayers" />
-
-    <Button
-        android:id="@+id/buttonGames"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="Partidos"
-        app:layout_constraintStart_toStartOf="@+id/buttonTeams"
-        app:layout_constraintTop_toBottomOf="@+id/buttonTeams" />
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout"
+        android:contentDescription="@string/logoNBA"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

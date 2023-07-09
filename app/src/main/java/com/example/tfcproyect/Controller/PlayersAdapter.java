@@ -1,4 +1,5 @@
 package com.example.tfcproyect.Controller;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
     protected View.OnClickListener onClickListener;
 
     public PlayersAdapter(List<Player> playersList) {
+
         this.playersList = playersList;
     }
 
@@ -59,6 +61,7 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
         private TextView playerTeamTextView;
         private TextView playerIdTextView;
         private ImageView urlPhotoImageView;
+        private TextView urlPhotoTextView;
 
         public PlayerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +69,8 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
             playerTeamTextView = itemView.findViewById(R.id.playerTeamTextView);
             playerIdTextView = itemView.findViewById(R.id.playerId);
             urlPhotoImageView = itemView.findViewById(R.id.urlPhotoimageView);
+            urlPhotoTextView = itemView.findViewById(R.id.playerUrlPhoto);
+
         }
 
         public void bind(Player player) {
@@ -73,6 +78,7 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
             playerTeamTextView.setText(player.getTeam().getFullName());
             playerIdTextView.setText(String.valueOf(player.getId()));
             Picasso.get().load(player.getUrlPhoto()).into(urlPhotoImageView);
+            urlPhotoTextView.setText(player.getUrlPhoto());
         }
 
         public TextView getPlayerNameTextView() {
@@ -85,6 +91,14 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.PlayerVi
 
         public TextView getPlayerIdTextView() {
             return playerIdTextView;
+        }
+
+        public TextView getUrlPhotoTextView() {
+            return urlPhotoTextView;
+        }
+
+        public ImageView getUrlPhotoImageView() {
+            return urlPhotoImageView;
         }
     }
 

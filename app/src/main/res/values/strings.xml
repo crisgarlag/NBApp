@@ -1,4 +1,11 @@
 <resources>
-    <string name="app_name">tfcproyect</string>
+    <string name="appName">tfcproyect</string>
     <string name="logoTeam">logoTeam</string>
+    <string name="jugadores">Jugadores</string>
+    <string name="equipos">Equipos</string>
+    <string name="partidos">Partidos</string>
+    <string name="fondo">Background</string>
+    <string name="logoNBA">Logo NBA</string>
+    <string name="buscarJugador">Buscar Jugador</string>
+    <string name="imagenPlayer">Foto del jugador</string>
 </resources>

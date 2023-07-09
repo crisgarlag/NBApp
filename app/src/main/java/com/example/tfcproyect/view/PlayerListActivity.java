@@ -1,14 +1,32 @@
 package com.example.tfcproyect.view;
 
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +41,7 @@ import com.example.tfcproyect.Controller.PlayersAdapter;
 import com.example.tfcproyect.R;
 import com.example.tfcproyect.model.Player;
 import com.example.tfcproyect.model.Team;
+import com.squareup.picasso.Picasso;
 
 
 import org.json.JSONArray;
@@ -51,26 +70,39 @@ public class PlayerListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_list);
-
         searchEditText = findViewById(R.id.searchEditText);
-        searchEditText.setVisibility(View.VISIBLE);
+        searchEditText.setVisibility(View.GONE);
         playersRecyclerView = findViewById(R.id.playersRecyclerView);
         playersList = new ArrayList<>();
-
         requestQueue = Volley.newRequestQueue(this);
         playersAdapter = new PlayersAdapter(playersList);
         playersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         playersRecyclerView.setAdapter(playersAdapter);
 
-        if(this.getIntent().hasExtra("abbreviationTeam")){
+
+        if (this.getIntent().hasExtra("abbreviationTeam")) {
             String abbreviation = this.getIntent().getExtras().getString("abbreviationTeam");
-            searchEditText.setVisibility(View.GONE);
             searchPlayersByTeam(abbreviation);
-        }else{
+        } else {
             searchPlayers("");
         }
 
+        playersRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                return false;
+            }
 
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
 
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -90,38 +122,55 @@ public class PlayerListActivity extends AppCompatActivity {
 
             }
         });
-
         playersAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PlayersAdapter.PlayerViewHolder playerViewHolder = new PlayersAdapter.PlayerViewHolder(view);
                 String name = playerViewHolder.getPlayerNameTextView().getText().toString();
-                searchPlayerStats(view, name);
+                String urlPhoto = playerViewHolder.getUrlPhotoTextView().getText().toString();
+                ImageView urlPhotoImageView = playerViewHolder.getUrlPhotoImageView();
+                searchPlayerStats(name, urlPhoto, urlPhotoImageView);
 
             }
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (this.getIntent().hasExtra("abbreviationTeam")) {
+            getSupportActionBar().hide();
+            return false;
+        } else {
+            getMenuInflater().inflate(R.menu.menu, menu);
+            return super.onCreateOptionsMenu(menu);
+        }
+    }
 
-    private void searchPlayerStats(View view, String playerName) {
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        searchEditText.setVisibility(View.VISIBLE);
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void searchPlayerStats(String playerName, String urlPhoto, ImageView urlPhotoImageView) {
         String url = API_BALLDONTLIE_URL + playerName;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        try {
-                            //playersList.clear();
-                            JSONObject resp = new JSONObject(response.toString());
-                            JSONArray jsonArrayData = resp.getJSONArray("data");
+                            try {
+                                //playersList.clear();
+                                JSONObject resp = new JSONObject(response.toString());
+                                JSONArray jsonArrayData = resp.getJSONArray("data");
+                                if(jsonArrayData.length()>0){
+                                    for (int i = 0; i < jsonArrayData.length(); i++) {
 
-                            for (int i = 0; i < jsonArrayData.length(); i++) {
+                                        //Por cada elemento del array crea un nuevo objeto
+                                        JSONObject dataObject = jsonArrayData.getJSONObject(i);
 
-                                //Por cada elemento del array crea un nuevo objeto
-                                JSONObject dataObject = jsonArrayData.getJSONObject(i);
-
-                                // Accede a los valores de los campos en el objeto JSON
-                                id = dataObject.getString("id");
+                                        // Accede a los valores de los campos en el objeto JSON
+                                        id = dataObject.getString("id");
                                 /*String firstName = dataObject.getString("first_name");
                                 String lastName = dataObject.getString("last_name");
                                 // Accede al objeto "team" dentro del objeto JSON
@@ -136,11 +185,15 @@ public class PlayerListActivity extends AppCompatActivity {
                                 player.setLastName(lastName);
                                 player.setTeam(team);
                                 playersList.add(player);*/
-                                startStatsActivity(view, id);
-                            }
-                            //playersAdapter.notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                                        startStatsActivity(id, playerName, urlPhoto, urlPhotoImageView);
+                                    }
+                                    //playersAdapter.notifyDataSetChanged();
+                                }else{
+                                    makeToast();
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                         }
                     }
                 },
@@ -196,7 +249,7 @@ public class PlayerListActivity extends AppCompatActivity {
                         error.printStackTrace();
                     }
                 });
-        
+
         requestQueue.add(request);
     }
 
@@ -248,12 +301,24 @@ public class PlayerListActivity extends AppCompatActivity {
         requestQueue.add(request);
     }
 
+    public void makeToast() {
+        String textToast = "El jugador no ha jugado esta temporada";
+        Toast toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
+        View view = getLayoutInflater().inflate(R.layout.item_toast, (ViewGroup) findViewById(R.id.toastLinearLayout));
+        TextView textView = view.findViewById(R.id.textToast);
+        textView.setText(textToast);
+        toast.setView(view);
+        toast.show();
+    }
 
 
-    public void startStatsActivity(View view, String id){
+    public void startStatsActivity(String id, String playerName, String urlPhoto, ImageView urlPhotoImageView) {
         Intent intent = new Intent(this, StatsActivity.class);
         intent.putExtra("id", id);
-        startActivity(intent);
+        intent.putExtra("urlPhoto", urlPhoto);
+        intent.putExtra("playerName", playerName);
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, urlPhotoImageView, ViewCompat.getTransitionName(urlPhotoImageView));
+        startActivity(intent, options.toBundle());
     }
 
 

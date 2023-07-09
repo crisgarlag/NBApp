@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +21,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tfcproyect.Controller.StatsAdapter;
 import com.example.tfcproyect.R;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,13 +36,19 @@ public class TabDefense extends Fragment {
     private RequestQueue requestQueue;
     private RecyclerView recyclerView;
     private StatsAdapter adapter;
+    private ImageView imagePlayer;
+    private TextView playerNameTextView;
     private String id;
+    private String playerName;
+    private String urlPhoto;
 
     private static String API_BALLDONTLIE_URL = "https://www.balldontlie.io/api/v1/season_averages?season=2022&player_ids[]=";
 
-    public TabDefense(String id) {
+    public TabDefense(String id, String playerName, String urlPhoto) {
         super();
         this.id = id;
+        this.playerName = playerName;
+        this.urlPhoto = urlPhoto;
     }
 
     @Override
@@ -47,7 +56,7 @@ public class TabDefense extends Fragment {
         super.onCreate(savedInstanceState);
         stats = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(getContext());
-        searchStatics(id);
+        searchStatsDefense(id);
         adapter = new StatsAdapter(stats);
     }
 
@@ -55,13 +64,17 @@ public class TabDefense extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab_defense, container, false);
+        playerNameTextView = view.findViewById(R.id.playerNameTextViewDefense);
+        playerNameTextView.setText(playerName);
         recyclerView = view.findViewById(R.id.statsRecyclerViewDefense);
+        imagePlayer = view.findViewById(R.id.urlPhotoimageViewDefense);
+        Picasso.get().load(urlPhoto).into(imagePlayer);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
         return view;
     }
 
-    public void searchStatics(String query){
+    public void searchStatsDefense(String query){
         String url = API_BALLDONTLIE_URL + query;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,

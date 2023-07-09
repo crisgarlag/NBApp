@@ -24,6 +24,8 @@ public class StatsActivity extends AppCompatActivity {
     private ViewPager2 viewPager;
     private TabLayout tabLayout;
     private String id;
+    private String urlPhoto;
+    private String playerName;
     private String tabsNames [] = new String[]{"Ataque", "Defensa"};
 
     private static String API_BALLDONTLIE_URL = "https://www.balldontlie.io/api/v1/season_averages?season=2022&player_ids[]=";
@@ -33,11 +35,14 @@ public class StatsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
+        getSupportActionBar().hide();
         id = this.getIntent().getExtras().getString("id");
+        urlPhoto = this.getIntent().getExtras().getString("urlPhoto");
+        playerName = this.getIntent().getExtras().getString("playerName");
         //VER PAGINA 133 para comentar sobre los tabs
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewpager);
-        viewPager.setAdapter(new PagerAdapter(this, id));
+        viewPager.setAdapter(new PagerAdapter(this, id,playerName, urlPhoto));
         new TabLayoutMediator(tabLayout, viewPager,
                 new TabLayoutMediator.TabConfigurationStrategy() {
                     @Override

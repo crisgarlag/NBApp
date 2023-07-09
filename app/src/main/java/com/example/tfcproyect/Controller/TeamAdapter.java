@@ -3,6 +3,7 @@ package com.example.tfcproyect.Controller;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Picture;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGImageView;
 import com.caverock.androidsvg.SVGParseException;
 import com.example.tfcproyect.R;
+import com.example.tfcproyect.SVGParse;
 import com.example.tfcproyect.model.Team;
 import com.pixplicity.sharp.Sharp;
 import com.squareup.picasso.Picasso;
@@ -78,7 +80,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
             super(itemView);
 
             teamNameTextView = itemView.findViewById(R.id.teamNameTextView);
-            logoTeamImageView = itemView.findViewById(R.id.urlPhototeamImageView);
+            //logoTeamImageView = itemView.findViewById(R.id.urlPhototeamImageView);
             svgImage = itemView.findViewById(R.id.SVGImageView);
             abbreviationTeamTextView = itemView.findViewById(R.id.teamAbbView);
         }
@@ -88,32 +90,32 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
         }
 
         public void bind(Team team) {
+            //El escudo de clevelan es el unico cuya url obtenida de la API no genera una imagen en formato .svg, por lo que se usa esta url externa
+            String urlLogoCleveland = "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cleveland_Cavaliers_logo.svg";
 
             String urlLogo = team.getUrlLogo();
             teamNameTextView.setText(team.getFullName());
             abbreviationTeamTextView.setText(team.getAbbreviation());
-            //"https://en.wikipedia.org/wiki/Cleveland_Cavaliers#/media/File:Cleveland_Cavaliers_logo.svg";
-            // Inicia una nueva Thread para cargar la imagen SVG desde la URL
-            Thread thread = new Thread(() -> {
-                try {
-                    // Crea una conexión HTTP para obtener el InputStream de la URL
-                    URL url = new URL(urlLogo);
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    InputStream inputStream = connection.getInputStream();
-                    // Parsea el SVG desde el InputStream
-                    SVG svg = SVG.getFromInputStream(inputStream);
-
-                    // Actualiza el SVGImageView con el SVG cargado
-                    svgImage.setSVG(svg);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-
-            // Inicia la Thread para cargar la imagen
-            thread.start();
+            if (urlLogo.endsWith(".svg")) {
+                new AsynTaskTeam().execute(urlLogo);
+            } else {
+                new AsynTaskTeam().execute(urlLogoCleveland);
+            }
         }
 
+        public class AsynTaskTeam extends AsyncTask<String, Void, SVG> {
 
+            @Override
+            protected SVG doInBackground(String... strings) {
+                return SVGParse.parseo(strings[0]);
+            }
+
+            @Override
+            protected void onPostExecute(SVG svg) {
+                super.onPostExecute(svg);
+                if (svg != null)
+                    svgImage.setSVG(svg);
+            }
+        }
     }
 }

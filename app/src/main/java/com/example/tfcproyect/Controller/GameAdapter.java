@@ -1,5 +1,6 @@
 package com.example.tfcproyect.Controller;
 
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGImageView;
 import com.caverock.androidsvg.SVGParseException;
 import com.example.tfcproyect.R;
+import com.example.tfcproyect.SVGParse;
 import com.example.tfcproyect.model.Game;
 
 import java.io.IOException;
@@ -33,7 +35,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
     @NonNull
     @Override
     public GameAdapter.GameViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_game, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_game, parent, false);
         return new GameViewHolder(view);
     }
 
@@ -48,7 +50,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
         return gameList.size();
     }
 
-    public class GameViewHolder extends RecyclerView.ViewHolder {
+    public static class GameViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textViewPoints1, textViewPoints2, textViewBar;
         private SVGImageView svgImageHomeTeam, svgImageAwayTeam;
@@ -62,47 +64,60 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
             svgImageAwayTeam = itemView.findViewById(R.id.SVGImageViewAwayTeam);
 
         }
-        public void bind(Game game){
 
-            String urlLogoHomeTeam = game.getUrlLogohomeTeam();
+        public void bind(Game game) {
+            //El escudo de clevelan es el unico cuya url obtenida de la API no genera una imagen en formato .svg, por lo que se usa esta url externa
+            String urlLogoCleveland = "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cleveland_Cavaliers_logo.svg";
+            String urlLogoHomeTeam = game.getUrlLogoHomeTeam();
             String urlLogoAwayTeam = game.getUrlLogoAwayTeam();
 
             textViewPoints1.setText(game.getHomeTeamScore());
             textViewPoints2.setText(game.getAwayTeamScore());
-            if(textViewPoints1.getText().toString().equals("") && textViewPoints2.getText().toString().equals("")){
-                textViewBar.setText("");
-            }else{
-                textViewBar.setText(" - ");
+
+            if (urlLogoHomeTeam.endsWith(".svg")) {
+                new AsyncTaskHome().execute(urlLogoHomeTeam);
+            } else {
+                new AsyncTaskHome().execute(urlLogoCleveland);
             }
 
-            if(urlLogoHomeTeam == null){
-                Log.d("Prueba home", "home es un elemento null");
+            if (urlLogoHomeTeam.endsWith(".svg")) {
+                new AsyncTaskAway().execute(urlLogoAwayTeam);
+            } else {
+                new AsyncTaskHome().execute(urlLogoCleveland);
             }
 
-            if(urlLogoAwayTeam ==null){
-                Log.d("Prueba away", "away es un elemento null");
+
+        }
+
+        public class AsyncTaskHome extends AsyncTask<String, Void, SVG> {
+            @Override
+            protected SVG doInBackground(String... strings) {
+
+                return SVGParse.parseo(strings[0]);
             }
 
-            Thread thread =  new Thread(()->{
-                try {
-                    URL urlHomeTeam = new URL(urlLogoHomeTeam);
-                    HttpURLConnection connectionHomeTeam = (HttpURLConnection) urlHomeTeam.openConnection();
-                    InputStream inputStreamHomeTeam = connectionHomeTeam.getInputStream();
-                    SVG svgHomeTeam = SVG.getFromInputStream(inputStreamHomeTeam);
-                    svgImageHomeTeam.setSVG(svgHomeTeam);
-                    URL urlAwayTeam = new URL(urlLogoAwayTeam);
-                    HttpURLConnection connectionAwayTeam = (HttpURLConnection) urlAwayTeam.openConnection();
-                    InputStream inputStreamAwayHome = connectionAwayTeam.getInputStream();
-                    SVG svgAwayTeam = SVG.getFromInputStream(inputStreamAwayHome);
-                    svgImageAwayTeam.setSVG(svgAwayTeam);
-                } catch (Exception e) {
-                    e.printStackTrace();
+            @Override
+            protected void onPostExecute(SVG svg) {
+                super.onPostExecute(svg);
+                if (svg != null) {
+                    svgImageHomeTeam.setSVG(svg);
                 }
-            });
+            }
+        }
 
-            thread.start();
+        public class AsyncTaskAway extends AsyncTask<String, Void, SVG> {
+            @Override
+            protected SVG doInBackground(String... strings) {
 
+                return SVGParse.parseo(strings[0]);
+            }
 
+            @Override
+            protected void onPostExecute(SVG svg) {
+                super.onPostExecute(svg);
+                if (svg != null)
+                    svgImageAwayTeam.setSVG(svg);
+            }
         }
 
     }

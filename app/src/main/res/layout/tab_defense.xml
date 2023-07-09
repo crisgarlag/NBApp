@@ -6,11 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".view.StatsActivity">
 
+    <ImageView
+        android:id="@+id/mainBackgroundDefense"
+        style="@style/mainBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/urlPhotoimageViewDefense"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:transitionName="imagePlayerTransition"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ImageContrastCheck"
+        android:contentDescription="@string/imagenPlayer"/>
+
+    <TextView
+        android:id="@+id/playerNameTextViewDefense"
+        style="@style/textStats"
+        app:layout_constraintEnd_toEndOf="@+id/urlPhotoimageViewDefense"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/urlPhotoimageViewDefense"
+        app:layout_constraintTop_toBottomOf="@+id/urlPhotoimageViewDefense" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/statsRecyclerViewDefense"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="464dp"
+        app:layout_constraintStart_toStartOf="@+id/urlPhotoimageViewDefense"
+        app:layout_constraintTop_toBottomOf="@+id/playerNameTextViewDefense"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

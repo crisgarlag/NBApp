@@ -41,12 +41,13 @@ public class TeamActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team);
-
+        getSupportActionBar().hide();
         recyclerView = findViewById(R.id.teamsRecyclerView);
         teamList = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(this);
         teamAdapter = new TeamAdapter(teamList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2,LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(teamAdapter);
         searchTeam();
 

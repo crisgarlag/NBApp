@@ -1,7 +1,5 @@
 package com.example.tfcproyect.model;
 
-import java.util.List;
-
 public class Game {
 
     private String awayTeam;
@@ -11,7 +9,7 @@ public class Game {
     private String awayTeamScore;
     private String homeTeamScore;
     private String urlLogoAwayTeam;
-    private String urlLogohomeTeam;
+    private String urlLogoHomeTeam;
 
     public Game(String awayTeam, String homeTeam, String awayTeamId, String homeTeamId, String awayTeamScore, String homeTeamScore) {
         this.awayTeam = awayTeam;
@@ -81,11 +79,11 @@ public class Game {
         this.urlLogoAwayTeam = urlLogoAwayTeam;
     }
 
-    public String getUrlLogohomeTeam() {
-        return urlLogohomeTeam;
+    public String getUrlLogoHomeTeam() {
+        return urlLogoHomeTeam;
     }
 
-    public void setUrlLogohomeTeam(String urlLogohomeTeam) {
-        this.urlLogohomeTeam = urlLogohomeTeam;
+    public void setUrlLogoHomeTeam(String urlLogoHomeTeam) {
+        this.urlLogoHomeTeam = urlLogoHomeTeam;
     }
 }
