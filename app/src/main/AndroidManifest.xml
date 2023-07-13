@@ -15,19 +15,19 @@
             android:name=".Calendario"
             android:exported="false" />
         <activity
-            android:name=".view.GameActivity"
+            android:name=".view.activity.GameActivity"
             android:exported="false" />
         <activity
-            android:name=".view.TeamActivity"
+            android:name=".view.activity.TeamActivity"
             android:exported="false" />
         <activity
-            android:name=".view.StatsActivity"
+            android:name=".view.activity.StatsActivity"
             android:exported="false" />
         <activity
-            android:name=".view.PlayerListActivity"
+            android:name=".view.activity.PlayerListActivity"
             android:exported="false" />
         <activity
-            android:name=".view.MainActivity"
+            android:name=".view.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

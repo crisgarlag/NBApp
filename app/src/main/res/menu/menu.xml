@@ -9,6 +9,7 @@
         android:icon = "@mipmap/lupa"
         android:title="lupa"
         app:showAsAction="always"
+        app:tint="@color/white"
         />
 
 </menu>

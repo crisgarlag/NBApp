@@ -1,4 +1,4 @@
-package com.example.tfcproyect;
+package com.example.tfcproyect.useCases;
 
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
@@ -30,4 +30,6 @@ public class SVGParse {
         }
         return null;
     }
+
+
 }

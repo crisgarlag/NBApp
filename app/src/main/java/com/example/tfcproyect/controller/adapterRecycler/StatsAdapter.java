@@ -1,4 +1,4 @@
-package com.example.tfcproyect.Controller;
+package com.example.tfcproyect.controller.adapterRecycler;
 
 import android.view.LayoutInflater;
 import android.view.View;

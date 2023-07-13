@@ -1,13 +1,13 @@
-package com.example.tfcproyect.Controller;
+package com.example.tfcproyect.controller.adapterRecycler;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.tfcproyect.view.StatsActivity;
-import com.example.tfcproyect.view.TabAttack;
-import com.example.tfcproyect.view.TabDefense;
+import com.example.tfcproyect.view.activity.StatsActivity;
+import com.example.tfcproyect.view.activity.TabAttack;
+import com.example.tfcproyect.view.activity.TabDefense;
 
 public class PagerAdapter extends FragmentStateAdapter {
 

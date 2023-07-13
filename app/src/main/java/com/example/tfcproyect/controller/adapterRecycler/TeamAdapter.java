@@ -1,8 +1,5 @@
-package com.example.tfcproyect.Controller;
+package com.example.tfcproyect.controller.adapterRecycler;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Picture;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,23 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGImageView;
-import com.caverock.androidsvg.SVGParseException;
 import com.example.tfcproyect.R;
-import com.example.tfcproyect.SVGParse;
-import com.example.tfcproyect.model.Team;
-import com.pixplicity.sharp.Sharp;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
+import com.example.tfcproyect.useCases.SVGParse;
+import com.example.tfcproyect.model.entitys.Team;
 
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 

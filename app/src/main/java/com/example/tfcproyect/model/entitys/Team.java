@@ -1,4 +1,4 @@
-package com.example.tfcproyect.model;
+package com.example.tfcproyect.model.entitys;
 
 public class Team {
     private int id;

@@ -1,20 +1,11 @@
-package com.example.tfcproyect.view;
+package com.example.tfcproyect.view.activity;
 
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -22,9 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,12 +25,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.tfcproyect.Controller.PlayersAdapter;
 import com.example.tfcproyect.R;
-import com.example.tfcproyect.model.Player;
-import com.example.tfcproyect.model.Team;
-import com.squareup.picasso.Picasso;
-
+import com.example.tfcproyect.controller.adapterRecycler.PlayersAdapter;
+import com.example.tfcproyect.controller.adapterRequest.RequestPlayer;
+import com.example.tfcproyect.model.entitys.Player;
+import com.example.tfcproyect.model.entitys.Team;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,7 +47,8 @@ public class PlayerListActivity extends AppCompatActivity {
     private PlayersAdapter playersAdapter;
     private List<Player> playersList;
     private String id;
-
+    private FloatingActionButton floatingactionbutton;
+    private RequestPlayer requestPlayer;
     private RequestQueue requestQueue;
 
 
@@ -69,10 +58,13 @@ public class PlayerListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_player_list);
         searchEditText = findViewById(R.id.searchEditText);
         searchEditText.setVisibility(View.GONE);
         playersRecyclerView = findViewById(R.id.playersRecyclerView);
+        floatingactionbutton = findViewById(R.id.floatingactionbutton);
+        //requestPlayer = new RequestPlayer(this);
         playersList = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(this);
         playersAdapter = new PlayersAdapter(playersList);
@@ -82,27 +74,14 @@ public class PlayerListActivity extends AppCompatActivity {
 
         if (this.getIntent().hasExtra("abbreviationTeam")) {
             String abbreviation = this.getIntent().getExtras().getString("abbreviationTeam");
+            floatingactionbutton.setVisibility(View.GONE);
+            //requestPlayer.searchPlayersbyTeam(abbreviation);
             searchPlayersByTeam(abbreviation);
         } else {
-            searchPlayers("");
+            //requestPlayer.searchPlayersbyName("");
+            searchPlayersByTeam("");
         }
 
-        playersRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            @Override
-            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-                return false;
-            }
-
-            @Override
-            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-            }
-        });
 
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -117,11 +96,20 @@ public class PlayerListActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String query = editable.toString().trim();
-                searchPlayers(query);
-
+                String nameQuery = editable.toString().trim();
+                //requestPlayer.searchPlayersbyName(nameQuery);
+                searchPlayers(nameQuery);
             }
         });
+
+        floatingactionbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchEditText.setVisibility(View.VISIBLE);
+            }
+        });
+
+
         playersAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,27 +117,12 @@ public class PlayerListActivity extends AppCompatActivity {
                 String name = playerViewHolder.getPlayerNameTextView().getText().toString();
                 String urlPhoto = playerViewHolder.getUrlPhotoTextView().getText().toString();
                 ImageView urlPhotoImageView = playerViewHolder.getUrlPhotoImageView();
+                //requestPlayer.searchPlayerToChangeAtivity(name);
                 searchPlayerStats(name, urlPhoto, urlPhotoImageView);
+                //startStatsActivity(requestPlayer.getIdPlayer(), name, urlPhoto, urlPhotoImageView);
 
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (this.getIntent().hasExtra("abbreviationTeam")) {
-            getSupportActionBar().hide();
-            return false;
-        } else {
-            getMenuInflater().inflate(R.menu.menu, menu);
-            return super.onCreateOptionsMenu(menu);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        searchEditText.setVisibility(View.VISIBLE);
-        return super.onOptionsItemSelected(item);
     }
 
     private void searchPlayerStats(String playerName, String urlPhoto, ImageView urlPhotoImageView) {
@@ -159,41 +132,41 @@ public class PlayerListActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                            try {
-                                //playersList.clear();
-                                JSONObject resp = new JSONObject(response.toString());
-                                JSONArray jsonArrayData = resp.getJSONArray("data");
-                                if(jsonArrayData.length()>0){
-                                    for (int i = 0; i < jsonArrayData.length(); i++) {
+                        try {
+                            //playersList.clear();
+                            JSONObject resp = new JSONObject(response.toString());
+                            JSONArray jsonArrayData = resp.getJSONArray("data");
+                            if (jsonArrayData.length() > 0) {
+                                for (int i = 0; i < jsonArrayData.length(); i++) {
 
-                                        //Por cada elemento del array crea un nuevo objeto
-                                        JSONObject dataObject = jsonArrayData.getJSONObject(i);
+                                    //Por cada elemento del array crea un nuevo objeto
+                                    JSONObject dataObject = jsonArrayData.getJSONObject(i);
 
-                                        // Accede a los valores de los campos en el objeto JSON
-                                        id = dataObject.getString("id");
-                                /*String firstName = dataObject.getString("first_name");
-                                String lastName = dataObject.getString("last_name");
-                                // Accede al objeto "team" dentro del objeto JSON
-                                JSONObject teamObject = dataObject.getJSONObject("team");
-                                String teamFullName = teamObject.getString("full_name");
+                                    // Accede a los valores de los campos en el objeto JSON
+                                    id = dataObject.getString("id");
+                                    String firstName = dataObject.getString("first_name");
+                                    String lastName = dataObject.getString("last_name");
+                                    // Accede al objeto "team" dentro del objeto JSON
+                                    JSONObject teamObject = dataObject.getJSONObject("team");
+                                    String teamFullName = teamObject.getString("full_name");
 
-                                Team team = new Team();
-                                team.setFullName(teamFullName);
-                                Player player = new Player();
-                                //player.setId(id);
-                                player.setFirstName(firstName);
-                                player.setLastName(lastName);
-                                player.setTeam(team);
-                                playersList.add(player);*/
-                                        startStatsActivity(id, playerName, urlPhoto, urlPhotoImageView);
-                                    }
-                                    //playersAdapter.notifyDataSetChanged();
-                                }else{
-                                    makeToast();
+                                    Team team = new Team();
+                                    team.setFullName(teamFullName);
+                                    Player player = new Player();
+                                    //player.setId(id);
+                                    player.setFirstName(firstName);
+                                    player.setLastName(lastName);
+                                    player.setTeam(team);
+                                    playersList.add(player);
+                                    startStatsActivity(id, playerName, urlPhoto, urlPhotoImageView);
                                 }
+                                //playersAdapter.notifyDataSetChanged();
+                            } else {
+                                makeToast();
+                            }
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
                 },
@@ -312,14 +285,12 @@ public class PlayerListActivity extends AppCompatActivity {
     }
 
 
-    public void startStatsActivity(String id, String playerName, String urlPhoto, ImageView urlPhotoImageView) {
+    public void startStatsActivity(String idPlayer, String playerName, String urlPhoto, ImageView urlPhotoImageView) {
         Intent intent = new Intent(this, StatsActivity.class);
-        intent.putExtra("id", id);
-        intent.putExtra("urlPhoto", urlPhoto);
+        intent.putExtra("id", idPlayer);
         intent.putExtra("playerName", playerName);
+        intent.putExtra("urlPhoto", urlPhoto);
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, urlPhotoImageView, ViewCompat.getTransitionName(urlPhotoImageView));
         startActivity(intent, options.toBundle());
     }
-
-
 }

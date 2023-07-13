@@ -1,7 +1,6 @@
-package com.example.tfcproyect.Controller;
+package com.example.tfcproyect.controller.adapterRecycler;
 
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGImageView;
-import com.caverock.androidsvg.SVGParseException;
 import com.example.tfcproyect.R;
-import com.example.tfcproyect.SVGParse;
-import com.example.tfcproyect.model.Game;
+import com.example.tfcproyect.useCases.SVGParse;
+import com.example.tfcproyect.model.entitys.Game;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder> {

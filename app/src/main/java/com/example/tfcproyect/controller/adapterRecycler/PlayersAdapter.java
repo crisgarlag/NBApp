@@ -1,5 +1,4 @@
-package com.example.tfcproyect.Controller;
-import android.net.Uri;
+package com.example.tfcproyect.controller.adapterRecycler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tfcproyect.R;
-import com.example.tfcproyect.model.Player;
+import com.example.tfcproyect.model.entitys.Player;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
