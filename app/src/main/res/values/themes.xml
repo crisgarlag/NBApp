@@ -59,6 +59,12 @@
     <style name="text.size14sp">
         <item name="android:textSize">14sp</item>
     </style>
+    <style name="text.size15sp">
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="text.size17sp">
+        <item name="android:textSize">17sp</item>
+    </style>
     <style name="text.size32sp">
         <item name="android:textSize">32sp</item>
     </style>
@@ -76,5 +82,13 @@
         <item name="android:textColor">@color/blue_800</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAlignment">center</item>
+    </style>
+    <style name="linearTeamInfo">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/border</item>
+        <item name="orientation">horizontal</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:padding">10dp</item>
     </style>
 </resources>

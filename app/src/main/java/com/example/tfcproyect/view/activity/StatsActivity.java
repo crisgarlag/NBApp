@@ -1,5 +1,6 @@
 package com.example.tfcproyect.view.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,9 +16,7 @@ public class StatsActivity extends AppCompatActivity {
 
     private ViewPager2 viewPager;
     private TabLayout tabLayout;
-    private String id;
-    private String urlPhoto;
-    private String playerName;
+    private String id, urlPhoto, playerName;
     private String tabsNames[] = new String[]{"Ataque", "Defensa"};
 
 
@@ -29,7 +28,6 @@ public class StatsActivity extends AppCompatActivity {
         id = this.getIntent().getExtras().getString("id");
         urlPhoto = this.getIntent().getExtras().getString("urlPhoto");
         playerName = this.getIntent().getExtras().getString("playerName");
-        //VER PAGINA 133 para comentar sobre los tabs
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewpager);
         viewPager.setAdapter(new PagerAdapter(this, id, playerName, urlPhoto));
@@ -40,5 +38,24 @@ public class StatsActivity extends AppCompatActivity {
                         tab.setText(tabsNames[position]);
                     }
                 }).attach();
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tab.view.setBackgroundColor(getResources().getColor(R.color.orange_200));
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                tab.view.setBackgroundColor(getResources().getColor(R.color.orange_600));
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
     }
 }

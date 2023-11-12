@@ -9,6 +9,34 @@ public class Team {
     private String name;
     private String urlLogo;
     private String fullName;
+    private String headCoach;
+    private Stadium stadium;
+
+    public Team(int id, String abbreviation, String city, String conference, String division, String name, String urlLogo, String fullName, String headCoach, Stadium stadium) {
+        this.id = id;
+        this.abbreviation = abbreviation;
+        this.city = city;
+        this.conference = conference;
+        this.division = division;
+        this.name = name;
+        this.urlLogo = urlLogo;
+        this.fullName = fullName;
+        this.headCoach = headCoach;
+        this.stadium = stadium;
+    }
+
+    public Team(int id, String abbreviation, String city, String conference, String division, String name, String urlLogo, String fullName, String headCoach) {
+        this.id = id;
+        this.abbreviation = abbreviation;
+        this.city = city;
+        this.conference = conference;
+        this.division = division;
+        this.name = name;
+        this.urlLogo = urlLogo;
+        this.fullName = fullName;
+        this.headCoach = headCoach;
+
+    }
 
     public Team(int id, String abbreviation, String city, String conference, String division, String name, String urlLogo) {
         this.id = id;
@@ -19,6 +47,8 @@ public class Team {
         this.name = name;
         this.urlLogo = urlLogo;
     }
+
+
 
     public Team() {
     }
@@ -84,5 +114,21 @@ public class Team {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getHeadCoach() {
+        return headCoach;
+    }
+
+    public void setHeadCoach(String headCoach) {
+        this.headCoach = headCoach;
+    }
+
+    public Stadium getStadium() {
+        return stadium;
+    }
+
+    public void setStadium(Stadium stadium) {
+        this.stadium = stadium;
     }
 }

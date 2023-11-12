@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activity.MainActivity">
+    tools:context=".view.activity.InfoPlayersActivity">
 
     <ImageView
         android:id="@+id/mainBackground"
         style="@style/mainBackground"
         android:alpha="0.5"
-        />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/gridLayout"
@@ -20,44 +20,30 @@
         android:layout_alignParentTop="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/mainBackground"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.40"
+        app:layout_constraintVertical_bias="0.441"
         app:orientation="vertical">
 
-
         <Button
-            android:id="@+id/buttonPlayers"
+            android:id="@+id/buttonInfo"
             style="@style/buttons"
-            android:text="@string/jugadores"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/informacion"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/buttonTeams"
+            android:id="@+id/buttonPlayerInfo"
             style="@style/buttons"
-            android:text="@string/equipos"
-            app:layout_constraintStart_toStartOf="@+id/buttonPlayers"
-            app:layout_constraintTop_toBottomOf="@+id/buttonPlayers" />
-
-        <Button
-            android:id="@+id/buttonGames"
-            style="@style/buttons"
-            android:text="@string/partidos"
-            app:layout_constraintStart_toStartOf="@+id/buttonTeams"
-            app:layout_constraintTop_toBottomOf="@+id/buttonTeams" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/jugadores"
+            app:layout_constraintStart_toStartOf="@+id/buttonInfo"
+            app:layout_constraintTop_toBottomOf="@+id/buttonInfo" />
 
     </androidx.gridlayout.widget.GridLayout>
-
-    <ImageView
-        android:id="@+id/logNBA"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="96dp"
-        android:src="@mipmap/nbalogo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout"
-        android:contentDescription="@string/logoNBA"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,7 +31,8 @@ public class TeamActivity extends AppCompatActivity {
             public void onClick(View view) {
                 TeamAdapter.TeamViewHolder teamViewHolder = new TeamAdapter.TeamViewHolder(view);
                 String abbreviationTeam = teamViewHolder.getAbbreviationTeam().getText().toString();
-                startPlayerActivity(view, abbreviationTeam);
+                String teamName = teamViewHolder.getTeamNameTextView().getText().toString();
+                startInfoActivity(view, abbreviationTeam, teamName);
 
             }
         });
@@ -45,9 +46,10 @@ public class TeamActivity extends AppCompatActivity {
         recyclerView.setAdapter(requestTeam.getTeamAdapter());
     }
 
-    public void startPlayerActivity(View view, String abbreviationTeam) {
-        Intent intent = new Intent(this, PlayerListActivity.class);
+    public void startInfoActivity(View view, String abbreviationTeam, String teamName) {
+        Intent intent = new Intent(this, InfoPlayersActivity.class);
         intent.putExtra("abbreviationTeam", abbreviationTeam);
+        intent.putExtra("teamName", teamName);
         startActivity(intent);
     }
 

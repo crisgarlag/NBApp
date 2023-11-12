@@ -53,6 +53,10 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
         this.onClickListener = onClickListener;
     }
 
+    public List<Team> getTeamList() {
+        return teamList;
+    }
+
     public static class TeamViewHolder extends RecyclerView.ViewHolder {
 
         private TextView teamNameTextView;
@@ -74,8 +78,12 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
             return abbreviationTeamTextView;
         }
 
+        public TextView getTeamNameTextView() {
+            return teamNameTextView;
+        }
+
         public void bind(Team team) {
-            //El escudo de clevelan es el unico cuya url obtenida de la API no genera una imagen en formato .svg, por lo que se usa esta url externa
+            //El escudo de Cleveland es el unico cuya url obtenida de la API no genera una imagen en formato .svg, por lo que se usa esta url externa
             String urlLogoCleveland = "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cleveland_Cavaliers_logo.svg";
 
             String urlLogo = team.getUrlLogo();

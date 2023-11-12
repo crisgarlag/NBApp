@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemInfoTeamLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/linearTeamInfoHeadCoach"
+        style="@style/linearTeamInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+       >
+
+        <TextView
+            android:id="@+id/HeadCoachTextView"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            style="@style/text.size15sp"
+            android:text="Entrenador:" />
+
+        <TextView
+            android:id="@+id/teamHeadCoachInfoTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            style="@style/text.size17sp"
+            app:layout_constraintBottom_toTopOf="@+id/conferenceTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearTeamInfoDivision"
+        style="@style/linearTeamInfo"
+        app:layout_constraintStart_toStartOf="@+id/linearTeamInfoHeadCoach"
+        app:layout_constraintTop_toBottomOf="@+id/linearTeamInfoHeadCoach">
+
+        <TextView
+            android:id="@+id/divisionTextView"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            style="@style/text.size15sp"
+            android:text="Division:" />
+
+        <TextView
+            android:id="@+id/teamDivisionInfoTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            style="@style/text.size17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/teamHeadCoachInfoTextView"
+            app:layout_constraintTop_toBottomOf="@+id/teamHeadCoachInfoTextView" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearTeamInfoConference"
+        style="@style/linearTeamInfo"
+        app:layout_constraintStart_toStartOf="@+id/linearTeamInfoDivision"
+        app:layout_constraintTop_toBottomOf="@+id/linearTeamInfoDivision">
+
+        <TextView
+            android:id="@+id/conferenceTextView"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            style="@style/text.size15sp"
+            android:text="Conference:" />
+
+        <TextView
+            android:id="@+id/teamConferenceInfoTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12.5dp"
+            style="@style/text.size17sp"
+            app:layout_constraintBottom_toTopOf="@+id/conferenceTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearTeamInfoCountry"
+        style="@style/linearTeamInfo"
+        app:layout_constraintStart_toStartOf="@+id/linearTeamInfoConference"
+        app:layout_constraintTop_toBottomOf="@+id/linearTeamInfoConference">
+
+        <TextView
+            android:id="@+id/countryTextView"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            style="@style/text.size15sp"
+            android:text="Pais:" />
+
+        <TextView
+            android:id="@+id/teamCountryInfoTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            style="@style/text.size17sp"
+            app:layout_constraintBottom_toTopOf="@+id/conferenceTextView"
+            app:layout_constraintStart_toStartOf="@+id/teamHeadCoachInfoTextView"
+            app:layout_constraintTop_toBottomOf="@+id/teamHeadCoachInfoTextView"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearTeamInfoStadiumCity"
+        style="@style/linearTeamInfo"
+        app:layout_constraintStart_toStartOf="@+id/linearTeamInfoCountry"
+        app:layout_constraintTop_toBottomOf="@+id/linearTeamInfoCountry"
+        >
+
+        <TextView
+            android:id="@+id/stadiumCityTextView"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            style="@style/text.size15sp"
+            android:text="Ciudad:" />
+
+        <TextView
+            android:id="@+id/teamStadiumCityInfoTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            style="@style/text.size17sp"
+            app:layout_constraintBottom_toTopOf="@+id/conferenceTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearTeamInfoStadiumName"
+        style="@style/linearTeamInfo"
+        app:layout_constraintStart_toStartOf="@+id/linearTeamInfoStadiumCity"
+        app:layout_constraintTop_toBottomOf="@+id/linearTeamInfoStadiumCity"
+        >
+
+        <TextView
+            android:id="@+id/stadiumNameTextView"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            style="@style/text.size15sp"
+            android:text="Estadio:" />
+
+        <TextView
+            android:id="@+id/teamStadiumNameInfoTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            style="@style/text.size17sp"
+            app:layout_constraintBottom_toTopOf="@+id/conferenceTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearTeamInfoAddress"
+        style="@style/linearTeamInfo"
+        app:layout_constraintStart_toStartOf="@+id/linearTeamInfoStadiumName"
+        app:layout_constraintTop_toBottomOf="@+id/linearTeamInfoStadiumName"
+        >
+
+        <TextView
+            android:id="@+id/addressTextView"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            style="@style/text.size15sp"
+            android:text="Dirección:" />
+
+        <TextView
+            android:id="@+id/addressInfoTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            style="@style/text.size17sp"
+            app:layout_constraintBottom_toTopOf="@+id/conferenceTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/teamLatInfoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue_800"
+        android:layout_marginStart="16dp"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/linearTeamInfoConference"
+        app:layout_constraintTop_toBottomOf="@+id/linearTeamInfoConference" />
+
+    <TextView
+        android:id="@+id/teamLonInfoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue_800"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/linearTeamInfoConference"
+        app:layout_constraintTop_toBottomOf="@+id/linearTeamInfoConference" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

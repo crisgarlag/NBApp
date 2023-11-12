@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tfcproyect.R;
 import com.example.tfcproyect.controller.adapterRequest.RequestAtackStat;
+import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
 public class TabAttack extends Fragment {
@@ -24,9 +26,7 @@ public class TabAttack extends Fragment {
     private RequestAtackStat requestAtackStat;
     private ImageView imagePlayer;
     private TextView playerNameTextView;
-    private String id;
-    private String playerName;
-    private String urlPhoto;
+    private String id, playerName, urlPhoto;
 
     public TabAttack(String id, String playerName, String urlPhoto) {
         super();
@@ -42,7 +42,9 @@ public class TabAttack extends Fragment {
         requestAtackStat = new RequestAtackStat(getContext());
         requestAtackStat.searchStats(id);
 
+
     }
+
 
     @Nullable
     @Override

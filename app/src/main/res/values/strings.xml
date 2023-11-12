@@ -8,4 +8,6 @@
     <string name="logoNBA">Logo NBA</string>
     <string name="buscarJugador">Buscar Jugador</string>
     <string name="imagenPlayer">Foto del jugador</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="informacion">Información</string>
 </resources>

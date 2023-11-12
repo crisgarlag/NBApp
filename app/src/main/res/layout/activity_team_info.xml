@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.TeamInfoActivity">
+
+    <ImageView
+        android:id="@+id/mainBackgroundInfoTeam"
+        style="@style/mainBackground"
+        />
+
+
+    <TextView
+        android:id="@+id/teamNameInfo"
+        style="@style/textStats"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/infoTeamsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/teamNameInfo"
+        android:layout_marginTop="2dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/buttonGoMap"
+        style="@style/buttons"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="120dp"
+        android:layout_marginStart="110dp"
+        android:text="Ir al estadio" />
+
+
+</RelativeLayout>

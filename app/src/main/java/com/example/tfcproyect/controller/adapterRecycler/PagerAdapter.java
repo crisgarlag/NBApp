@@ -11,9 +11,8 @@ import com.example.tfcproyect.view.activity.TabDefense;
 
 public class PagerAdapter extends FragmentStateAdapter {
 
-    private String id;
-    private String urlPhoto;
-    private String playerName;
+    private String id, urlPhoto, playerName;
+
 
 
 
