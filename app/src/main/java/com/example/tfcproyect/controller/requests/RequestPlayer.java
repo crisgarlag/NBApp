@@ -1,7 +1,13 @@
-package com.example.tfcproyect.controller.adapterRequest;
+package com.example.tfcproyect.controller.requests;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.view.View;
 import android.widget.ImageView;
+
+import androidx.core.view.ViewCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -10,16 +16,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.tfcproyect.controller.adapterRecycler.PlayersAdapter;
+import com.example.tfcproyect.controller.adapters.PlayersAdapter;
 import com.example.tfcproyect.model.APInterfaces.ApiRequestPlayer;
 import com.example.tfcproyect.model.entitys.Player;
 import com.example.tfcproyect.model.entitys.Team;
+import com.example.tfcproyect.view.activity.PlayerListActivity;
+import com.example.tfcproyect.view.activity.StatsActivity;
 import com.example.tfcproyect.view.toast.PersonalizedToast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,6 +41,7 @@ public class RequestPlayer implements ApiRequestPlayer {
     private PersonalizedToast personalizedToast;
     private String idPlayer;
 
+
     public RequestPlayer(Context context) {
         playersList = new ArrayList<>();
         playersAdapter = new PlayersAdapter(playersList);
@@ -40,7 +50,7 @@ public class RequestPlayer implements ApiRequestPlayer {
     }
 
     @Override
-    public void searchPlayersbyName(String playerName) {
+    public void searchPlayersByName(String playerName) {
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, API_SPORTDATA_PLAYERS_URL, null,
                 new Response.Listener<JSONArray>() {
@@ -87,7 +97,7 @@ public class RequestPlayer implements ApiRequestPlayer {
     }
 
     @Override
-    public void searchPlayersbyTeam(String abbreviationTeamName) {
+    public void searchPlayersByTeam(String abbreviationTeamName) {
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, API_SPORTDATA_PLAYERS_URL, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -133,30 +143,24 @@ public class RequestPlayer implements ApiRequestPlayer {
     }
 
     @Override
-    public void searchPlayerToChangeAtivity(String playerName) {
-
+    public void searchIdPlayerToStats(Context context, String playerName, String urlPhoto, ImageView urlPhotoImageView) {
         String url = String.format(API_BALLDONTLIE_URL, playerName);
-        String toastMessage = "El jugador no ha jugado esta temporada";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        playersList.clear();
                         try {
                             JSONObject resp = new JSONObject(response.toString());
                             JSONArray jsonArrayData = resp.getJSONArray("data");
-                            if(jsonArrayData.length()==1){
                                 for (int i = 0; i < jsonArrayData.length(); i++) {
 
                                     //Por cada elemento del array crea un nuevo objeto
                                     JSONObject dataObject = jsonArrayData.getJSONObject(i);
-
                                     // Accede a los valores de los campos en el objeto JSON
                                     idPlayer = dataObject.getString("id");
+                                    startStatsActivity(context, idPlayer, playerName, urlPhoto, urlPhotoImageView);
 
-                                    //startStatsActivity(id, playerName, urlPhoto, urlPhotoImageView);
-                                }
-                            }else{
-                                personalizedToast.makeToast(toastMessage);
                             }
 
                         } catch (JSONException e) {
@@ -174,12 +178,17 @@ public class RequestPlayer implements ApiRequestPlayer {
         requestQueue.add(request);
     }
 
-    public PlayersAdapter getPlayersAdapter() {
-        return playersAdapter;
+    public void startStatsActivity(Context context,String idPlayer, String playerName, String urlPhoto, ImageView urlPhotoImageView) {
+        Intent intent = new Intent(context, StatsActivity.class);
+        intent.putExtra("id", idPlayer);
+        intent.putExtra("playerName", playerName);
+        intent.putExtra("urlPhoto", urlPhoto);
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) context, urlPhotoImageView, ViewCompat.getTransitionName(urlPhotoImageView));
+        context.startActivity(intent,options.toBundle());
     }
 
-    public String getIdPlayer() {
-        return idPlayer;
+    public PlayersAdapter getPlayersAdapter() {
+        return playersAdapter;
     }
 
 }

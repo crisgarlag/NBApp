@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tfcproyect.R;
-import com.example.tfcproyect.controller.adapterRequest.RequestDefenseStat;
+import com.example.tfcproyect.controller.requests.RequestDefenseStat;
 import com.squareup.picasso.Picasso;
 
 public class TabDefense extends Fragment {

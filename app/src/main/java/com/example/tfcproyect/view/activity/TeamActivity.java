@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tfcproyect.controller.adapterRecycler.TeamAdapter;
+import com.example.tfcproyect.controller.adapters.TeamAdapter;
 import com.example.tfcproyect.R;
-import com.example.tfcproyect.controller.adapterRequest.RequestTeam;
+import com.example.tfcproyect.controller.requests.RequestTeam;
 
 public class TeamActivity extends AppCompatActivity {
 

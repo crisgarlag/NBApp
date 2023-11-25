@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,8 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tfcproyect.R;
-import com.example.tfcproyect.controller.adapterRequest.RequestAtackStat;
-import com.google.android.material.tabs.TabLayout;
+import com.example.tfcproyect.controller.requests.RequestAtackStat;
 import com.squareup.picasso.Picasso;
 
 public class TabAttack extends Fragment {

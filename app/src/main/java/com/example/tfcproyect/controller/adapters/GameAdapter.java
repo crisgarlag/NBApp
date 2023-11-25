@@ -1,4 +1,4 @@
-package com.example.tfcproyect.controller.adapterRecycler;
+package com.example.tfcproyect.controller.adapters;
 
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGImageView;
 import com.example.tfcproyect.R;
-import com.example.tfcproyect.useCases.SVGParse;
+import com.example.tfcproyect.controller.useCases.SVGParse;
 import com.example.tfcproyect.model.entitys.Game;
 
 import java.util.List;

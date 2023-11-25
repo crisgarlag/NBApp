@@ -1,7 +1,6 @@
-package com.example.tfcproyect.controller.adapterRequest;
+package com.example.tfcproyect.controller.requests;
 
 import android.content.Context;
-import android.widget.ListAdapter;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -9,9 +8,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.tfcproyect.controller.adapterRecycler.GameAdapter;
-import com.example.tfcproyect.controller.adapterRecycler.TeamAdapter;
-import com.example.tfcproyect.controller.adapterRecycler.TeamInfoAdapter;
+import com.example.tfcproyect.controller.adapters.GameAdapter;
+import com.example.tfcproyect.controller.adapters.TeamAdapter;
+import com.example.tfcproyect.controller.adapters.TeamInfoAdapter;
 import com.example.tfcproyect.model.APInterfaces.ApiRequestsTeam;
 import com.example.tfcproyect.model.entitys.Game;
 import com.example.tfcproyect.model.entitys.Stadium;
@@ -31,6 +30,7 @@ public class RequestTeam implements ApiRequestsTeam {
     private TeamAdapter teamAdapter;
     private TeamInfoAdapter teamInfoAdapter;
     private RequestQueue requestQueue;
+    String API_SPORTDATA_STADIUM_URL = "https://api.sportsdata.io/v3/nba/scores/json/Stadiums?key=86ec5c1581744920a90b566123618d07";
 
 
 

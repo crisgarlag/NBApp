@@ -10,6 +10,7 @@ public class Player {
     private Team team;
     private int weightPounds;
     private String urlPhoto;
+    private String fullName;
 
     public Player(int id, String firstName, int height_feet, int height_inches, String lastName, String position, Team team, int weight_pounds) {
         this.id = id;
@@ -98,7 +99,8 @@ public class Player {
     }
 
     public String getFullName(){
-        return firstName + " " + lastName;
+        return firstName +" "+ lastName;
     }
+
 }
 

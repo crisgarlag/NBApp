@@ -2,12 +2,14 @@
     <string name="appName">tfcproyect</string>
     <string name="logoTeam">logoTeam</string>
     <string name="jugadores">Jugadores</string>
-    <string name="equipos">Equipos</string>
-    <string name="partidos">Partidos</string>
-    <string name="fondo">Background</string>
+    <string name="teams">Equipos</string>
+    <string name="games">Partidos</string>
+    <string name="background">Background</string>
     <string name="logoNBA">Logo NBA</string>
-    <string name="buscarJugador">Buscar Jugador</string>
+    <string name="search_player">Buscar Jugador</string>
     <string name="imagenPlayer">Foto del jugador</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="informacion">Información</string>
+    <string name="go_to_stadium">Ir al estadio</string>
+    <string name="marker">Marcador</string>
 </resources>

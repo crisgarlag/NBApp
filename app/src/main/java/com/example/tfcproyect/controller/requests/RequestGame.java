@@ -1,4 +1,4 @@
-package com.example.tfcproyect.controller.adapterRequest;
+package com.example.tfcproyect.controller.requests;
 
 import android.content.Context;
 
@@ -8,7 +8,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.tfcproyect.controller.adapterRecycler.GameAdapter;
+import com.example.tfcproyect.controller.adapters.GameAdapter;
 import com.example.tfcproyect.model.APInterfaces.ApiRequestsGame;
 import com.example.tfcproyect.model.entitys.Game;
 import com.example.tfcproyect.view.toast.PersonalizedToast;

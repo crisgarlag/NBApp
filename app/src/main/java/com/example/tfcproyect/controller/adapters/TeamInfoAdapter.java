@@ -1,4 +1,4 @@
-package com.example.tfcproyect.controller.adapterRecycler;
+package com.example.tfcproyect.controller.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tfcproyect.R;
 import com.example.tfcproyect.model.entitys.Team;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 

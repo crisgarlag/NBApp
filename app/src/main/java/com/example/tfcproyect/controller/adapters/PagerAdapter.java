@@ -1,4 +1,4 @@
-package com.example.tfcproyect.controller.adapterRecycler;
+package com.example.tfcproyect.controller.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

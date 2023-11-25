@@ -1,13 +1,12 @@
 package com.example.tfcproyect.view.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.tfcproyect.controller.adapterRecycler.PagerAdapter;
+import com.example.tfcproyect.controller.adapters.PagerAdapter;
 import com.example.tfcproyect.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;

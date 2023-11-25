@@ -1,4 +1,4 @@
-package com.example.tfcproyect.controller.adapterRecycler;
+package com.example.tfcproyect.controller.adapters;
 
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGImageView;
 import com.example.tfcproyect.R;
-import com.example.tfcproyect.useCases.SVGParse;
+import com.example.tfcproyect.controller.useCases.SVGParse;
 import com.example.tfcproyect.model.entitys.Team;
 
 
@@ -60,7 +60,6 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
     public static class TeamViewHolder extends RecyclerView.ViewHolder {
 
         private TextView teamNameTextView;
-        private ImageView logoTeamImageView;
         private SVGImageView svgImage;
         private TextView abbreviationTeamTextView;
 
@@ -69,7 +68,6 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
             super(itemView);
 
             teamNameTextView = itemView.findViewById(R.id.teamNameTextView);
-            //logoTeamImageView = itemView.findViewById(R.id.urlPhototeamImageView);
             svgImage = itemView.findViewById(R.id.SVGImageView);
             abbreviationTeamTextView = itemView.findViewById(R.id.teamAbbView);
         }

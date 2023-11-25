@@ -1,4 +1,4 @@
-package com.example.tfcproyect.useCases;
+package com.example.tfcproyect.controller.useCases;
 
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;

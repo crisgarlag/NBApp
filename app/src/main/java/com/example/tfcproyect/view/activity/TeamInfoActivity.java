@@ -12,8 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.tfcproyect.R;
-import com.example.tfcproyect.controller.adapterRecycler.TeamInfoAdapter;
-import com.example.tfcproyect.controller.adapterRequest.RequestTeam;
+import com.example.tfcproyect.controller.adapters.TeamInfoAdapter;
+import com.example.tfcproyect.controller.requests.RequestTeam;
 import com.google.android.gms.maps.model.LatLng;
 
 public class TeamInfoActivity extends AppCompatActivity {
@@ -28,6 +28,7 @@ public class TeamInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_team_info);
+       getSupportActionBar().hide();
        initializeVariables();
        teamName = getIntent().getStringExtra("teamName");
        teamNameTextView.setText(teamName);

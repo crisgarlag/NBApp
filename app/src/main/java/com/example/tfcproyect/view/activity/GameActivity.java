@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tfcproyect.R;
-import com.example.tfcproyect.controller.adapterRequest.RequestGame;
+import com.example.tfcproyect.controller.requests.RequestGame;
 
 public class GameActivity extends AppCompatActivity {
 
