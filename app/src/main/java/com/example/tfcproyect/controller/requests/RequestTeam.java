@@ -30,7 +30,7 @@ public class RequestTeam implements ApiRequestsTeam {
     private TeamAdapter teamAdapter;
     private TeamInfoAdapter teamInfoAdapter;
     private RequestQueue requestQueue;
-    String API_SPORTDATA_STADIUM_URL = "https://api.sportsdata.io/v3/nba/scores/json/Stadiums?key=86ec5c1581744920a90b566123618d07";
+    final String API_SPORTDATA_STADIUM_URL = "https://api.sportsdata.io/v3/nba/scores/json/Stadiums?key=86ec5c1581744920a90b566123618d07";
 
 
 

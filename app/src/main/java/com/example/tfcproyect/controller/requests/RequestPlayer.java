@@ -38,7 +38,6 @@ public class RequestPlayer implements ApiRequestPlayer {
     private List<Player> playersList;
     private PlayersAdapter playersAdapter;
     private RequestQueue requestQueue;
-    private PersonalizedToast personalizedToast;
     private String idPlayer;
 
 
@@ -46,7 +45,6 @@ public class RequestPlayer implements ApiRequestPlayer {
         playersList = new ArrayList<>();
         playersAdapter = new PlayersAdapter(playersList);
         requestQueue = Volley.newRequestQueue(context);
-        personalizedToast = new PersonalizedToast(context);
     }
 
     @Override
